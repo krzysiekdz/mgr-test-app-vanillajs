@@ -1,195 +1,117 @@
 
 // ----------- main elements
-var clear, table, tableWrap, refresh, search, add, edit, 
-	inputAdd, inputSearch, inputEdit,
-	const1, const2, const3, 
-	filter10, update10Col2, update10Col5,
-	add1first, add1mid, add1last, 
-	add2first, add2mid, add2last,
-	add3first, add3mid, add3last,
-	add4first, add4mid, add4last,
-	replace1first, replace1mid, replace1last,
-	replace2first, replace2mid, replace2last,
-	replace3first, replace3mid, replace3last,
-	replace4first, replace4mid, replace4last,
-	updateCol2First, updateCol2Mid, updateCol2Last,
-	updateCol5First, updateCol5Mid, updateCol5Last,
-	swapFirst, swapMid, swapLast;
-
+var btnClear, btnRefresh, 
+	table, tableWrap, 
+	btnAddFirst, btnAddMid, btnAddLast, inputAdd,
+	btnReplaceFirst, btnReplaceMid, btnReplaceLast, inputReplace,
+	btnUpdateColFirst, btnUpdateColMid, btnUpdateColLast, btnUpdate10, checkboxUpdateReplace, inputUpdateWord, inputUpdateCol,
+	btnSwapFirst, btnSwapMid, btnSwapLast,
+	btnFilter10_1, btnFilter10_2, btnFilter10_3, 
+	fetch1, fetch2, fetch3, 
+	inputInput,  
+	inputEdit, btnEdit,
+	inputSearch, btnSearch;
+	
 var data = [];
 
 // -------------- init function
 
 document.addEventListener('DOMContentLoaded', function() {
-	
-	clear = byName('clear'), table = byName('table'), tableWrap = byName('tableWrap'), refresh = byName('refresh'), 
-	search = byName('btn-search'), edit = byName('btn-edit'),
-	inputAdd = byName('input-add'), inputEdit = byName('input-edit'), inputSearch = byName('input-search'),
-	const1 = byName('const1'), const2 = byName('const2'), const3 = byName('const3'), 
-	filter10 = byName('filter10'), update10Col2 = byName('update10Col2'), update10Col5 = byName('update10Col5'),
-	add1first = byName('add1first'), add1mid = byName('add1mid'), add1last = byName('add1last'), 
-	add2first = byName('add2first'), add2mid = byName('add2mid'), add2last = byName('add2last'),
-	add3first = byName('add3first'), add3mid = byName('add3mid'), add3last = byName('add3last'),
-	add4first = byName('add4first'), add4mid = byName('add4mid'), add4last = byName('add4last'),
-	replace1first = byName('replace1first'), replace1mid = byName('replace1mid'), replace1last = byName('replace1last'),
-	replace2first = byName('replace2first'), replace2mid = byName('replace2mid'), replace2last = byName('replace2last'),
-	replace3first = byName('replace3first'), replace3mid = byName('replace3mid'), replace3last = byName('replace3last'),
-	replace4first = byName('replace4first'), replace4mid = byName('replace4mid'), replace4last = byName('replace4last'),
-	updateCol2First = byName('updateCol2First'), updateCol2Mid = byName('updateCol2Mid'), updateCol2Last = byName('updateCol2Last'),
-	updateCol5First = byName('updateCol5First'), updateCol5Mid = byName('updateCol5Mid'), updateCol5Last = byName('updateCol5Last'),
-	swapFirst = byName('swapFirst'), swapMid = byName('swapMid'), swapLast = byName('swapLast');
+	btnClear = byName('clear'),  btnRefresh = byName('refresh'), 
+	table = byName('table'), tableWrap = byName('tableWrap'),
+	btnAddFirst = byName('addFirst'), btnAddMid = byName('addMid'), btnAddLast = byName('addLast'), inputAdd = byName('input-add'),
+	btnReplaceFirst = byName('replaceFirst'), btnReplaceMid = byName('replaceMid'), btnReplaceLast = byName('replaceLast'), inputReplace = byName('input-replace'),
+	btnUpdateColFirst = byName('updateColFirst'), btnUpdateColMid = byName('updateColMid'), btnUpdateColLast = byName('updateColLast'), btnUpdate10 = byName('update10'), 
+	checkboxUpdateReplace = byName('checkbox-update-replace'), inputUpdateWord = byName('input-update-text'), inputUpdateCol = byName('input-update-column'), 
+	btnSwapFirst = byName('swapFirst'), btnSwapMid = byName('swapMid'), btnSwapLast = byName('swapLast'),
+	btnFilter10_1 = byName('filter10_1'), btnFilter10_2 = byName('filter10_2'), btnFilter10_3 = byName('filter10_3'), 
+	fetch1 = byName('fetch1'), fetch2 = byName('fetch2'), fetch3 = byName('fetch3'), 
+	inputInput = byName('input-input'),  
+	inputEdit = byName('input-edit'), btnEdit = byName('btn-edit'),
+	inputSearch = byName('input-search'), btnSearch = byName('btn-search');
 
-
-	clear.addEventListener('click', function() {
+	//clear, refresh
+	btnClear.addEventListener('click', function() {
 		clearRows();
 	}, false);
-	refresh.addEventListener('click', function() {
+	btnRefresh.addEventListener('click', function() {
 		refreshRows();
 	}, false);
 
+	//add
+	btnAddFirst.addEventListener('click', function() {
+		addRowsFirst(inputAdd.value);
+	}, false);
+	btnAddMid.addEventListener('click', function() {
+		addRowsMid(inputAdd.value);
+	}, false);
+	btnAddLast.addEventListener('click', function() {
+		addRowsLast(inputAdd.value);
+	}, false);
+
+	//replace
+	btnReplaceFirst.addEventListener('click', function() {
+		replaceRowsFirst(inputReplace.value);
+	}, false);
+	btnReplaceMid.addEventListener('click', function() {
+		replaceRowsMid(inputReplace.value);
+	}, false);
+	btnReplaceLast.addEventListener('click', function() {
+		replaceRowsLast(inputReplace.value);
+	}, false);
+
+	//update
+	btnUpdateColFirst.addEventListener('click', function() {
+		updateColFirst(inputUpdateCol, inputUpdateWord, checkboxUpdateReplace.checked);
+	}, false);
+	btnUpdateColMid.addEventListener('click', function() {
+		updateColMid(inputUpdateCol, inputUpdateWord, checkboxUpdateReplace.checked);
+	}, false);
+	btnUpdateColLast.addEventListener('click', function() {
+		updateColLast(inputUpdateCol, inputUpdateWord, checkboxUpdateReplace.checked);
+	}, false);
+	btnUpdate10.addEventListener('click', function() {
+		updateRows10(inputUpdateCol, inputUpdateWord, checkboxUpdateReplace.checked);
+	}, false);
+
+	//swap
+	btnSwapFirst.addEventListener('click', function() {
+		swapRowsFirst();
+	}, false);
+	btnSwapMid.addEventListener('click', function() {
+		swapRowsMid();
+	}, false);
+	btnSwapLast.addEventListener('click', function() {
+		swapRowsLast();
+	}, false);
+
+
+	btnFilter10_1.addEventListener('click', function() {
+		filterRows10();
+	}, false);
+
+	fetch1.addEventListener('click', function() {
+		constData(1000);
+	}, false);
+	fetch2.addEventListener('click', function() {
+		constData(2000);
+	}, false);
+	fetch3.addEventListener('click', function() {
+		constData(10000);
+	}, false);
+
+	inputEdit.addEventListener('input', function(e) {
+		editData(e);
+	}, false);
+	btnEdit.addEventListener('click', function() {
+		editData(null, true);
+	}, false);
 
 	inputSearch.addEventListener('input', function(e) {
 		searchData(e);
 	}, false);
-	search.addEventListener('click', function(e) {
+	btnSearch.addEventListener('click', function(e) {
 		searchData(e, true);
-	}, false);
-	
-	inputEdit.addEventListener('input', function(e) {
-		editData(e);
-	}, false);
-	edit.addEventListener('click', function() {
-		editData(null, true);
-	}, false);
-
-	filter10.addEventListener('click', function() {
-		filterRows10();
-	}, false);
-	update10Col2.addEventListener('click', function() {
-		updateRows10(1);
-	}, false);
-	update10Col5.addEventListener('click', function() {
-		updateRows10(4);
-	}, false);
-
-	const1.addEventListener('click', function() {
-		constData(1000);
-	}, false);
-	const2.addEventListener('click', function() {
-		constData(2000);
-	}, false);
-	const3.addEventListener('click', function() {
-		constData(10000);
-	}, false);
-
-	add1first.addEventListener('click', function() {
-		addRowsFirst(1);
-	}, false);
-	add1mid.addEventListener('click', function() {
-		addRowsMid(1);
-	}, false);
-	add1last.addEventListener('click', function() {
-		addRowsLast(1);
-	}, false);
-
-	add2first.addEventListener('click', function() {
-		addRowsFirst(1000);
-	}, false);
-	add2mid.addEventListener('click', function() {
-		addRowsMid(1000);
-	}, false);
-	add2last.addEventListener('click', function() {
-		addRowsLast(1000);
-	}, false);
-
-	add3first.addEventListener('click', function() {
-		addRowsFirst(2000);
-	}, false);
-	add3mid.addEventListener('click', function() {
-		addRowsMid(2000);
-	}, false);
-	add3last.addEventListener('click', function() {
-		addRowsLast(2000);
-	}, false);
-
-	add4first.addEventListener('click', function() {
-		addRowsFirst(10000);
-	}, false);
-	add4mid.addEventListener('click', function() {
-		addRowsMid(10000);
-	}, false);
-	add4last.addEventListener('click', function() {
-		addRowsLast(10000);
-	}, false);
-
-	replace1first.addEventListener('click', function() {
-		replaceRowsFirst(1);
-	}, false);
-	replace1mid.addEventListener('click', function() {
-		replaceRowsMid(1);
-	}, false);
-	replace1last.addEventListener('click', function() {
-		replaceRowsLast(1);
-	}, false);
-
-	replace2first.addEventListener('click', function() {
-		replaceRowsFirst(1000);
-	}, false);
-	replace2mid.addEventListener('click', function() {
-		replaceRowsMid(1000);
-	}, false);
-	replace2last.addEventListener('click', function() {
-		replaceRowsLast(1000);
-	}, false);
-
-	replace3first.addEventListener('click', function() {
-		replaceRowsFirst(2000);
-	}, false);
-	replace3mid.addEventListener('click', function() {
-		replaceRowsMid(2000);
-	}, false);
-	replace3last.addEventListener('click', function() {
-		replaceRowsLast(2000);
-	}, false);
-
-	replace4first.addEventListener('click', function() {
-		replaceRowsFirst(10000);
-	}, false);
-	replace4mid.addEventListener('click', function() {
-		replaceRowsMid(10000);
-	}, false);
-	replace4last.addEventListener('click', function() {
-		replaceRowsLast(10000);
-	}, false);
-
-	updateCol2First.addEventListener('click', function() {
-		updateColFirst(1);
-	}, false);
-	updateCol2Mid.addEventListener('click', function() {
-		updateColMid(1);
-	}, false);
-	updateCol2Last.addEventListener('click', function() {
-		updateColLast(1);
-	}, false);
-
-	updateCol5First.addEventListener('click', function() {
-		updateColFirst(4);
-	}, false);
-	updateCol5Mid.addEventListener('click', function() {
-		updateColMid(4);
-	}, false);
-	updateCol5Last.addEventListener('click', function() {
-		updateColLast(4);
-	}, false);
-
-	swapFirst.addEventListener('click', function() {
-		swapRowsFirst();
-	}, false);
-	swapMid.addEventListener('click', function() {
-		swapRowsMid();
-	}, false);
-	swapLast.addEventListener('click', function() {
-		swapRowsLast();
 	}, false);
 
 });

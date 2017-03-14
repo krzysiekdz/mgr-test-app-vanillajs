@@ -37,7 +37,18 @@ function rand(mod) { //max modulo === 1000
     return Math.floor(Math.random() * 1000 ) % mod;
 }
 
+function resetId() {
+	id = 1;
+}
+
+function setId(i) {
+    id = i;
+}
+
 
 exports.byName = byName;
 exports.text = text;
 exports.create = create;
+exports.randomObjects = randomObjects;
+exports.resetId = resetId;
+exports.setId = setId;

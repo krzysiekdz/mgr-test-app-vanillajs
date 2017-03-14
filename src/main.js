@@ -1,90 +1,111 @@
 import Bindings from './bind.js';
+import Add from './add.js';
+import Repl from './replace.js';
+import Fns from './other-fns.js';
+import Update from './update.js';
+import Swap from './swap.js';
+import Filter from './filter.js';
 
 document.addEventListener('DOMContentLoaded', function() {
-	
+
+	Bindings.bind();
 
 	//clear, refresh
-	btnClear.addEventListener('click', function() {
-		clearRows();
+	Bindings.btnClear.addEventListener('click', function() {
+		Fns.clearRows();
 	}, false);
-	btnRefresh.addEventListener('click', function() {
-		refreshRows();
+	Bindings.btnRefresh.addEventListener('click', function() {
+		Fns.refreshRows();
 	}, false);
 
 	//add
-	btnAddFirst.addEventListener('click', function() {
-		addRowsFirst(inputAdd.value);
+	Bindings.btnAddFirst.addEventListener('click', function() {
+		Add.addRowsFirst(Number(Bindings.inputAdd.value));
 	}, false);
-	btnAddMid.addEventListener('click', function() {
-		addRowsMid(inputAdd.value);
+	Bindings.btnAddMid.addEventListener('click', function() {
+		Add.addRowsMid(Number(Bindings.inputAdd.value));
 	}, false);
-	btnAddLast.addEventListener('click', function() {
-		addRowsLast(inputAdd.value);
+	Bindings.btnAddLast.addEventListener('click', function() {
+		Add.addRowsLast(Number(Bindings.inputAdd.value));
 	}, false);
 
 	//replace
-	btnReplaceFirst.addEventListener('click', function() {
-		replaceRowsFirst(inputReplace.value);
+	Bindings.btnReplaceFirst.addEventListener('click', function() {
+		Repl.replaceRowsFirst(Number(Bindings.inputReplace.value));
 	}, false);
-	btnReplaceMid.addEventListener('click', function() {
-		replaceRowsMid(inputReplace.value);
+	Bindings.btnReplaceMid.addEventListener('click', function() {
+		Repl.replaceRowsMid(Number(Bindings.inputReplace.value));
 	}, false);
-	btnReplaceLast.addEventListener('click', function() {
-		replaceRowsLast(inputReplace.value);
+	Bindings.btnReplaceLast.addEventListener('click', function() {
+		Repl.replaceRowsLast(Number(Bindings.inputReplace.value));
 	}, false);
 
 	//update
-	btnUpdateColFirst.addEventListener('click', function() {
-		updateColFirst(inputUpdateCol.value, inputUpdateWord.value, checkboxUpdateReplace.checked);
+	Bindings.btnUpdateColFirst.addEventListener('click', function() {
+		Update.updateColFirst(Bindings.inputUpdateCol.value, 
+				Bindings.inputUpdateWord.value, 
+				Bindings.checkboxUpdateReplace.checked);
 	}, false);
-	btnUpdateColMid.addEventListener('click', function() {
-		updateColMid(inputUpdateCol.value, inputUpdateWord.value, checkboxUpdateReplace.checked);
+	Bindings.btnUpdateColMid.addEventListener('click', function() {
+		Update.updateColMid(Bindings.inputUpdateCol.value, 
+			Bindings.inputUpdateWord.value, 
+			Bindings.checkboxUpdateReplace.checked);
 	}, false);
-	btnUpdateColLast.addEventListener('click', function() {
-		updateColLast(inputUpdateCol.value, inputUpdateWord.value, checkboxUpdateReplace.checked);
+	Bindings.btnUpdateColLast.addEventListener('click', function() {
+		Update.updateColLast(Bindings.inputUpdateCol.value, 
+			Bindings.inputUpdateWord.value, 
+			Bindings.checkboxUpdateReplace.checked);
 	}, false);
-	btnUpdate10.addEventListener('click', function() {
-		updateRows10(inputUpdateCol.value, inputUpdateWord.value, checkboxUpdateReplace.checked);
+	Bindings.btnUpdate10.addEventListener('click', function() {
+		Update.updateRows10(Bindings.inputUpdateCol.value, 
+			Bindings.inputUpdateWord.value, 
+			Bindings.checkboxUpdateReplace.checked);
 	}, false);
 
 	//swap
-	btnSwapFirst.addEventListener('click', function() {
-		swapRowsFirst();
+	Bindings.btnSwapFirst.addEventListener('click', function() {
+		Swap.swapRowsFirst();
 	}, false);
-	btnSwapMid.addEventListener('click', function() {
-		swapRowsMid();
+	Bindings.btnSwapMid.addEventListener('click', function() {
+		Swap.swapRowsMid();
 	}, false);
-	btnSwapLast.addEventListener('click', function() {
-		swapRowsLast();
-	}, false);
-
-
-	btnFilter10_1.addEventListener('click', function() {
-		filterRows10();
+	Bindings.btnSwapLast.addEventListener('click', function() {
+		Swap.swapRowsLast();
 	}, false);
 
-	fetch1.addEventListener('click', function() {
-		fetchData(1000);
+
+	Bindings.btnFilter10_1.addEventListener('click', function() {
+		Filter.filterRows10();
 	}, false);
-	fetch2.addEventListener('click', function() {
-		fetchData(2000);
+	Bindings.btnFilter10_2.addEventListener('click', function() {
+		Filter.filterRows10_2();
 	}, false);
-	fetch3.addEventListener('click', function() {
-		fetchData(10000);
+	Bindings.btnFilter10_3.addEventListener('click', function() {
+		Filter.filterRows10_3();
 	}, false);
 
-	inputEdit.addEventListener('input', function() {
-		editData();
+	Bindings.btnFetch1.addEventListener('click', function() {
+		Fns.fetchData(1000);
 	}, false);
-	btnEdit.addEventListener('click', function() {
-		editData();
+	Bindings.btnFetch2.addEventListener('click', function() {
+		Fns.fetchData(2000);
+	}, false);
+	Bindings.btnFetch3.addEventListener('click', function() {
+		Fns.fetchData(10000);
 	}, false);
 
-	inputSearch.addEventListener('input', function() {
-		searchData();
+	Bindings.inputEdit.addEventListener('input', function() {
+		Fns.editData();
 	}, false);
-	btnSearch.addEventListener('click', function() {
-		searchData();
+	Bindings.btnEdit.addEventListener('click', function() {
+		Fns.editData();
+	}, false);
+
+	Bindings.inputSearch.addEventListener('input', function() {
+		Fns.searchData();
+	}, false);
+	Bindings.btnSearch.addEventListener('click', function() {
+		Fns.searchData();
 	}, false);
 
 });

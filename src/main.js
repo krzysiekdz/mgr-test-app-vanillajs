@@ -18,6 +18,11 @@ document.addEventListener('DOMContentLoaded', function() {
 		Fns.refreshRows();
 	}, false);
 
+	//init
+	Bindings.btnInit.addEventListener('click', function() {
+		Add.addRowsLast(Number(Bindings.inputInit.value));
+	}, false);
+
 	//add
 	Bindings.btnAddFirst.addEventListener('click', function() {
 		Add.addRowsFirst(Number(Bindings.inputAdd.value));

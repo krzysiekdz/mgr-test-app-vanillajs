@@ -11,6 +11,9 @@ function bind() {
 	b.table = u.byName('table'),
 	b.tableWrap = u.byName('tableWrap'),
 
+	b.btnInit = u.byName('btn-init'), 
+	b.inputInit = u.byName('input-init'),
+
 	b.btnAddFirst = u.byName('addFirst'), 
 	b.btnAddMid = u.byName('addMid'), 
 	b.btnAddLast = u.byName('addLast'), 

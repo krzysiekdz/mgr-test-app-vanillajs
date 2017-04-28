@@ -137,17 +137,6 @@ exports.setId = setId;
 "use strict";
 
 
-module.exports = {
-	data: []
-};
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
 var _util = __webpack_require__(0);
 
 var _util2 = _interopRequireDefault(_util);
@@ -163,6 +152,17 @@ function bind() {
 }
 
 /***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = {
+	data: []
+};
+
+/***/ }),
 /* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -173,7 +173,7 @@ var _util = __webpack_require__(0);
 
 var _util2 = _interopRequireDefault(_util);
 
-var _appState = __webpack_require__(1);
+var _appState = __webpack_require__(2);
 
 var _appState2 = _interopRequireDefault(_appState);
 
@@ -274,11 +274,11 @@ var _util = __webpack_require__(0);
 
 var _util2 = _interopRequireDefault(_util);
 
-var _appState = __webpack_require__(1);
+var _appState = __webpack_require__(2);
 
 var _appState2 = _interopRequireDefault(_appState);
 
-var _bind = __webpack_require__(2);
+var _bind = __webpack_require__(1);
 
 var _bind2 = _interopRequireDefault(_bind);
 
@@ -381,9 +381,13 @@ var _util = __webpack_require__(0);
 
 var _util2 = _interopRequireDefault(_util);
 
-var _appState = __webpack_require__(1);
+var _appState = __webpack_require__(2);
 
 var _appState2 = _interopRequireDefault(_appState);
+
+var _bind = __webpack_require__(1);
+
+var _bind2 = _interopRequireDefault(_bind);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -392,12 +396,12 @@ function replaceRowsFirst(count) {
 	var data = _appState2.default.data;
 
 	if (data.length >= count) {
-		var newData = _util2.default.randomObjects(count);
-		for (var i = 0; i < count; i++) {
-			//replace model and view
-			replaceRow(data[i], newData[i]);
-			// replaceRowSlow(table.children.item(i), data[i], newData[i]);
-		}
+		var start = 0,
+		    end = count;
+
+		updateModel(start, end);
+
+		updateView(start, end);
 	}
 }
 
@@ -406,14 +410,12 @@ function replaceRowsMid(count) {
 	var data = _appState2.default.data;
 
 	if (_appState2.default.data.length >= count) {
-		var newData = _util2.default.randomObjects(count);
 		var start = Math.floor(data.length / 2) - Math.floor(count / 2);
 		var end = start + count;
-		for (var i = start, j = 0; i < end; i++, j++) {
-			//replace model and view
-			replaceRow(data[i], newData[j]);
-			// replaceRowSlow(table.children.item(i), newData[j], data[i]);
-		}
+
+		updateModel(start, end);
+
+		updateView(start, end);
 	}
 }
 
@@ -422,16 +424,86 @@ function replaceRowsLast(count) {
 	var data = _appState2.default.data;
 
 	if (_appState2.default.data.length >= count) {
-		var newData = _util2.default.randomObjects(count);
 		var start = data.length - count;
 		var end = start + count;
-		for (var i = start, j = 0; i < end; i++, j++) {
-			//replace model and view
-			replaceRow(data[i], newData[j]);
-			// replaceRowSlow(table.children.item(i), newData[j], data[i]);
+
+		updateModel(start, end);
+
+		updateView(start, end);
+	}
+}
+
+function updateModel(start, end) {
+	var data = _appState2.default.data;
+
+	var newData = _util2.default.randomObjects(end - start);
+	for (var i = start, j = 0; i < end; i++, j++) {
+		data[i].id = newData[j].id;
+		data[i].c1 = newData[j].c1;
+		data[i].c2 = newData[j].c2;
+		data[i].c3 = newData[j].c3;
+		data[i].c4 = newData[j].c4;
+	}
+}
+
+function updateView(start, end) {
+	var data = _appState2.default.data;
+
+	for (var i = start; i < end; i++) {
+		//non-keyed replace
+		refreshRow(data[i]);
+
+		//non-keyed slow replace
+		// refreshSlow(Bindings.table.children.item(i), data[i]);
+
+		//keyed replace
+		// refreshRow2(data[i]);
+	}
+}
+
+//non-keyd replace
+function refreshRow(item) {
+	var tr = item.ref;
+	tr.cells[0].innerText = item.id;
+	tr.cells[1].innerText = item.c1;
+	tr.cells[2].innerText = item.c2;
+	tr.cells[3].innerText = item.c3;
+	tr.cells[4].innerText = item.c4;
+
+	//cleaning for possible existing styles
+	for (var i = 1; i <= 4; i++) {
+		if (tr.cells[i].classList.contains('search-selected')) {
+			tr.cells[i].classList.remove('search-selected');
 		}
 	}
 }
+
+//non-keyed slow replace -> slow because tr is passed through API table.children.item(i)
+function refreshSlow(tr, item) {
+	tr.cells[0].innerText = item.id;
+	tr.cells[1].innerText = item.c1;
+	tr.cells[2].innerText = item.c2;
+	tr.cells[3].innerText = item.c3;
+	tr.cells[4].innerText = item.c4;
+
+	//cleaning for possible existing styles
+	for (var i = 1; i <= 4; i++) {
+		if (tr.cells[i].classList.contains('search-selected')) {
+			tr.cells[i].classList.remove('search-selected');
+		}
+	}
+}
+
+//keyed replace
+function refreshRow2(item) {}
+//usuniecie grupy elementow (lub usiniecie dzieci z elementu tr)
+//dodanie grupy w wybrane miejsce - to jak add
+//jest jak remove + add - nie ma co badać - jesli we frameworku czasy sa wlasnie jak dla add to znaczy ze jest robiona wersja keyed
+
+//..napisac i zbadac i pokazac ze czasy sa jak dla add i remove
+
+
+//----------------------------------- old functions, should't be used
 
 //non-keyed replace
 exports.replaceRow = replaceRow;
@@ -485,7 +557,7 @@ function replaceRowSlow(tr, item, newItem) {
 	tr.cells[4].innerText = item.c4;
 }
 
-// do sprawdzenia
+// to check...
 // var txt = tr.cells[1].firstChild.nodeValue;
 // tr.cells[1].firstChild.nodeValue = txt + 'a';
 
@@ -500,11 +572,11 @@ var _util = __webpack_require__(0);
 
 var _util2 = _interopRequireDefault(_util);
 
-var _appState = __webpack_require__(1);
+var _appState = __webpack_require__(2);
 
 var _appState2 = _interopRequireDefault(_appState);
 
-var _bind = __webpack_require__(2);
+var _bind = __webpack_require__(1);
 
 var _bind2 = _interopRequireDefault(_bind);
 
@@ -591,11 +663,11 @@ var _util = __webpack_require__(0);
 
 var _util2 = _interopRequireDefault(_util);
 
-var _appState = __webpack_require__(1);
+var _appState = __webpack_require__(2);
 
 var _appState2 = _interopRequireDefault(_appState);
 
-var _bind = __webpack_require__(2);
+var _bind = __webpack_require__(1);
 
 var _bind2 = _interopRequireDefault(_bind);
 
@@ -702,11 +774,11 @@ var _util = __webpack_require__(0);
 
 var _util2 = _interopRequireDefault(_util);
 
-var _appState = __webpack_require__(1);
+var _appState = __webpack_require__(2);
 
 var _appState2 = _interopRequireDefault(_appState);
 
-var _bind = __webpack_require__(2);
+var _bind = __webpack_require__(1);
 
 var _bind2 = _interopRequireDefault(_bind);
 
@@ -833,11 +905,11 @@ var _util = __webpack_require__(0);
 
 var _util2 = _interopRequireDefault(_util);
 
-var _appState = __webpack_require__(1);
+var _appState = __webpack_require__(2);
 
 var _appState2 = _interopRequireDefault(_appState);
 
-var _bind = __webpack_require__(2);
+var _bind = __webpack_require__(1);
 
 var _bind2 = _interopRequireDefault(_bind);
 
@@ -920,7 +992,7 @@ function getTypePos(type) {
 "use strict";
 
 
-var _bind = __webpack_require__(2);
+var _bind = __webpack_require__(1);
 
 var _bind2 = _interopRequireDefault(_bind);
 

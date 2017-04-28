@@ -3,7 +3,7 @@ import state from './app-state.js';
 import Bindings from './bind.js';
 import row from './row.js';
 import Add from './add.js';
-import Replace from './replace.js';
+import update from './update.js';
 
 
 exports.clearRows = clearRows;
@@ -11,7 +11,10 @@ function clearRows() {
 	if(state.data.length > 0) {
 		state.data = [];
 		u.resetId();
+
+		//find the fastest remove method
 		Bindings.table.remove();
+
 		var table = Bindings.table = u.create('tbody');
 		table.setAttribute('name', 'table');
 		Bindings.tableWrap.appendChild(table);
@@ -27,13 +30,15 @@ function refreshRows() {
 		table.setAttribute('name', 'table');
 		Bindings.tableWrap.appendChild(table);
 		state.data.forEach(item => {
-			table.appendChild(row.createRow(item));
+			item.ref = row.createRow(item);
+			table.appendChild(item.ref);
 		});
 	}
 }
 
 exports.fetchData = fetchData;
 function fetchData(count) {
+	var host = 'http://localhost:8080/data-files/';
 	var resource = 'data' + count + '.json';
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
@@ -41,10 +46,10 @@ function fetchData(count) {
 			var newData = JSON.parse(this.responseText);
 			clearRows();
 			u.setId(count+1);
-			Add.addRowsFirst(null, newData);
+			Add.addRowsFirst(1, newData);
 		}
 	}
-	xhttp.open('GET', resource, true);
+	xhttp.open('GET', host + resource, true);
 	xhttp.send();
 }
 
@@ -53,7 +58,7 @@ function editData() {
 	var data = state.data;
 	if(data.length > 0) {
 		data[0].c1 = Bindings.inputEdit.value;
-		Replace.replaceRow(data[0], data[0]);
+		update.updateRow(data[0]);
 	} 
 }
 
@@ -63,7 +68,6 @@ function searchData() {
 		searchFor(Bindings.inputSearch.value);
 	}
 }
-
 
 function searchFor(txt) {
 	var col = ['c1', 'c2', 'c3', 'c4'];

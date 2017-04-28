@@ -8,6 +8,7 @@ exports.addRowsMid = addRowsMid;
 exports.addRowsLast = addRowsLast;
 
 function addRowsFirst(count, newData) {//newData - optional parameter - if it is, randomObjects is not used
+	count = u.parseNumber(count, 1, 10000);
 	if(!newData) {
 		newData = u.randomObjects(count);
 	}
@@ -19,6 +20,7 @@ function addRowsFirst(count, newData) {//newData - optional parameter - if it is
 }
 
 function addRowsMid(count, newData) {
+	count = u.parseNumber(count, 1, 10000);
 	if(!newData) {
 		newData = u.randomObjects(count);
 	}
@@ -38,6 +40,7 @@ function addRowsMid(count, newData) {
 }
 
 function addRowsLast(count, newData) {
+	count = u.parseNumber(count, 1, 10000);
 	if(!newData) {
 		newData = u.randomObjects(count);
 	}
@@ -67,22 +70,3 @@ function updateView(newData, insertBeforePos, last) {
 		table.appendChild(docFragment);	
 	}
 }
-
-
-// function addRows(count = 100) {
-// 	//wersja 1
-// 	// var newData = buildData(count);
-// 	// data = data.concat(newData);
-// 	// newData.forEach(item => {
-// 	// 	table.appendChild(createRow(item));
-// 	// });
-
-// 	//sprawdzic czym sie rozni docFramgment od zwyklego diva, gdydybm do niego dodawal
-// 	var newData = randomObjects(count);
-// 	data = data.concat(newData);
-// 	var docFragment = document.createDocumentFragment();
-// 	newData.forEach(item => {
-// 		docFragment.appendChild(createRow(item));
-// 	});
-// 	table.appendChild(docFragment);
-// }

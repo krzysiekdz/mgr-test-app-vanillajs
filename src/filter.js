@@ -5,8 +5,10 @@ import row from './row.js';
 
 var filterOn = false;
 
-exports.filterRows10 = filterRows10;
-function filterRows10() {
+exports.filter = filter1;
+
+
+function filter1() {
 	var data = state.data;
 
 	if(data.length > 0 && !filterOn) {
@@ -28,7 +30,7 @@ function filterRows10() {
 
 		for(var i = 0; i < data.length; i++) {
 			//update model and view 
-			if(data[i].id % 10 !== 0) {
+			if(!data[i].visible) {
 				data[i].visible = true;
 				var tr = data[i].ref;
 				// var tr = table.children.item(i);
@@ -38,8 +40,8 @@ function filterRows10() {
 	}
 }
 
-exports.filterRows10_2 = filterRows10_2;
-function filterRows10_2() {
+
+function filter2() {
 	var data = state.data;
 	var {tableWrap, table} = Bindings;
 
@@ -52,8 +54,8 @@ function filterRows10_2() {
 	}
 }
 
-exports.filterRows10_3 = filterRows10_3;
-function filterRows10_3() {
+
+function filter3() {
 	var data = state.data;
 	var {tableWrap} = Bindings;
 

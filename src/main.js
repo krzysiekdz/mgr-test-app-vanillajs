@@ -20,51 +20,43 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	//init
 	Bindings.btnInit.addEventListener('click', function() {
-		Add.addRowsLast(Number(Bindings.inputInit.value));
+		Add.addRowsLast(Bindings.inputInit.value);
 	}, false);
 
 	//add
 	Bindings.btnAddFirst.addEventListener('click', function() {
-		Add.addRowsFirst(Number(Bindings.inputAdd.value));
+		Add.addRowsFirst(Bindings.inputAdd.value);
 	}, false);
 	Bindings.btnAddMid.addEventListener('click', function() {
-		Add.addRowsMid(Number(Bindings.inputAdd.value));
+		Add.addRowsMid(Bindings.inputAdd.value);
 	}, false);
 	Bindings.btnAddLast.addEventListener('click', function() {
-		Add.addRowsLast(Number(Bindings.inputAdd.value));
+		Add.addRowsLast(Bindings.inputAdd.value);
 	}, false);
 
 	//replace
 	Bindings.btnReplaceFirst.addEventListener('click', function() {
-		Repl.replaceRowsFirst(Number(Bindings.inputReplace.value));
+		Repl.replaceRowsFirst(Bindings.inputReplace.value);
 	}, false);
 	Bindings.btnReplaceMid.addEventListener('click', function() {
-		Repl.replaceRowsMid(Number(Bindings.inputReplace.value));
+		Repl.replaceRowsMid(Bindings.inputReplace.value);
 	}, false);
 	Bindings.btnReplaceLast.addEventListener('click', function() {
-		Repl.replaceRowsLast(Number(Bindings.inputReplace.value));
+		Repl.replaceRowsLast(Bindings.inputReplace.value);
 	}, false);
 
 	//update
-	Bindings.btnUpdateColFirst.addEventListener('click', function() {
-		Update.updateColFirst(Bindings.inputUpdateCol.value, 
-				Bindings.inputUpdateWord.value, 
-				Bindings.checkboxUpdateReplace.checked);
+	Bindings.btnUpdateFirst.addEventListener('click', function() {
+		Update.updateRowsFirst(Bindings.inputUpdate.value);
 	}, false);
-	Bindings.btnUpdateColMid.addEventListener('click', function() {
-		Update.updateColMid(Bindings.inputUpdateCol.value, 
-			Bindings.inputUpdateWord.value, 
-			Bindings.checkboxUpdateReplace.checked);
+	Bindings.btnUpdateMid.addEventListener('click', function() {
+		Update.updateRowsMid(Bindings.inputUpdate.value);
 	}, false);
-	Bindings.btnUpdateColLast.addEventListener('click', function() {
-		Update.updateColLast(Bindings.inputUpdateCol.value, 
-			Bindings.inputUpdateWord.value, 
-			Bindings.checkboxUpdateReplace.checked);
+	Bindings.btnUpdateLast.addEventListener('click', function() {
+		Update.updateRowsLast(Bindings.inputUpdate.value);
 	}, false);
-	Bindings.btnUpdate10.addEventListener('click', function() {
-		Update.updateRows10(Bindings.inputUpdateCol.value, 
-			Bindings.inputUpdateWord.value, 
-			Bindings.checkboxUpdateReplace.checked);
+	Bindings.btnUpdateEvery.addEventListener('click', function() {
+		Update.partialUpdate(Bindings.inputUpdateEvery.value);
 	}, false);
 
 	//swap
@@ -78,27 +70,15 @@ document.addEventListener('DOMContentLoaded', function() {
 		Swap.swapRowsLast();
 	}, false);
 
-
-	Bindings.btnFilter10_1.addEventListener('click', function() {
-		Filter.filterRows10();
-	}, false);
-	Bindings.btnFilter10_2.addEventListener('click', function() {
-		Filter.filterRows10_2();
-	}, false);
-	Bindings.btnFilter10_3.addEventListener('click', function() {
-		Filter.filterRows10_3();
-	}, false);
-
+	//fetch
 	Bindings.btnFetch1.addEventListener('click', function() {
 		Fns.fetchData(1000);
 	}, false);
 	Bindings.btnFetch2.addEventListener('click', function() {
 		Fns.fetchData(2000);
 	}, false);
-	Bindings.btnFetch3.addEventListener('click', function() {
-		Fns.fetchData(10000);
-	}, false);
 
+	//edit
 	Bindings.inputEdit.addEventListener('input', function() {
 		Fns.editData();
 	}, false);
@@ -106,6 +86,12 @@ document.addEventListener('DOMContentLoaded', function() {
 		Fns.editData();
 	}, false);
 
+	//filter
+	Bindings.checkboxFilter.addEventListener('click', function() {
+		Filter.filter();
+	}, false);
+
+	//search
 	Bindings.inputSearch.addEventListener('input', function() {
 		Fns.searchData();
 	}, false);

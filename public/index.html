@@ -23,18 +23,11 @@
                 </div>
                 
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="init..." name="input-init">
+                    <input type="text" class="form-control" placeholder="init..." value="10" name="input-init">
                     <span class="input-group-btn">
                         <button class="btn btn-default" name="btn-init">init</button>
                     </span>
                 </div>
-
-                <!--  
-                ewentualnie click ze wybieram komórkę
-                swap - mozna jeszcze robic swap odlegly czyli np pierwszy z ostatnim, potem np 25 z 75 (przy 100)
-                sprawdzic jak wyglada obliczanie styli gdy tabela jest striped i nie (oraz gdy to moj wlasny styl i klasa boostrap)
-                 -->
-
 
                 <div class="container-action">
                     <button class="btn btn-default btn-menu" name="addFirst">            add I</button>
@@ -60,14 +53,18 @@
 
                
                 <div class="container-action">
-                    <button class="btn btn-default btn-menu" name="updateColFirst">           update I</button>
-                    <button class="btn btn-default btn-menu" name="updateColMid">           update II</button>
-                    <button class="btn btn-default btn-menu" name="updateColLast">           update III</button>
-                    <button class="btn btn-default btn-menu" name="update10">            update evr10</button>
-                    <div class="checkbox"> <label> <input type="checkbox" name="checkbox-update-replace" > replace</label> </div>
+                    <button class="btn btn-default btn-menu" name="updateFirst">           update I</button>
+                    <button class="btn btn-default btn-menu" name="updateMid">           update II</button>
+                    <button class="btn btn-default btn-menu" name="updateLast">           update III</button>
+                    <div class="menu-block">
+                        update: <input type="text" class="form-control input150" value="500" name="input-update"> 
+                        elements
+                    </div>
                     <div>
-                        update with: <input type="text" class="form-control input150" value="a" name="input-update-text"> 
-                        col: <input type="text" class="form-control input50" value="2" name="input-update-column">
+                        <button class="btn btn-default btn-menu" name="updateEvery">            update</button>
+                        every
+                        <input type="text" class="form-control input50" value="4" name="input-update-every">
+                        th element
                     </div>
                 </div>
                 
@@ -77,20 +74,14 @@
                     <button class="btn btn-default btn-menu" name="swapLast">             swap III</button>
                 </div>
 
-                <div class="container-action">
-                    <button class="btn btn-default btn-menu" name="filter10_1">                filter10-1</button>
-                    <button class="btn btn-default btn-menu" name="filter10_2">                filter10-2</button>
-                    <button class="btn btn-default btn-menu" name="filter10_3">                filter10-3</button>
-                </div>
 
                  <div class="container-action">
                     <button class="btn btn-default btn-menu" name="fetch1">             fetch 1k</button>
                     <button class="btn btn-default btn-menu" name="fetch2">             fetch 2k</button>
-                    <button class="btn btn-default btn-menu" name="fetch3">             fetch 10k</button>
                 </div>
 
 
-                <div class="input-group">
+                 <div class="input-group">
                     <span class="input-group-addon">input:</span>
                     <input type="text" class="form-control" placeholder="input..." name="input-input">
                 </div>
@@ -101,6 +92,14 @@
                         <button class="btn btn-default" name="btn-edit">edit</button>
                     </span>
                 </div>
+
+                 <div class="container-action">
+                    <div class="checkbox">
+                        <label> 
+                            <input type="checkbox" name="checkbox-filter"> filter
+                        </label> 
+                    </div>
+                </div>               
 
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="search for..." name="input-search">

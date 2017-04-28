@@ -1,9 +1,9 @@
 // var webpack = require('webpack');
 
 module.exports = {
-	entry: './src/main.js',
+	entry:   __dirname + '/src/main.js',
 	output: {
-		path: './public',
+		path:  __dirname + '/public',
 		filename: 'main.js'
 	},
 	module: {
@@ -19,3 +19,4 @@ module.exports = {
 		]
 	}
 };
+

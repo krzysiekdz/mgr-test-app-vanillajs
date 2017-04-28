@@ -57,58 +57,43 @@ function swap(i, j) {
 	b.ref.cells[4].innerText = a.c4;
 
 	//swaping styles of td's
-	for(var i = 1; i <= 4; i++) {
-		swapClasses(a.ref.cells[i], b.ref.cells[i]);
-	}
+	// for(var i = 1; i <= 4; i++) {
+	// 	swapClasses(a.ref.cells[i], b.ref.cells[i]);
+	// }
 
 	//swaping styles of tr's
-	swapClasses(a.ref, b.ref);
+	// swapClasses(a.ref, b.ref);
 
 	//swaping view references
 	temp = a.ref;
 	a.ref = b.ref;
 	b.ref = temp;
-
-
-
-	
-	//keyed swap
-
-	// if(a >= b) return;
-	// var tempA = table.children.item(a);
-	// table.insertBefore(table.children.item(b), tempA); //B goes before A
-	// var tempB = table.children.item(b+1);
-	// if(!tempB) {
-	// 	table.appendChild(tempA);
-	// } else {
-	// 	table.insertBefore(tempA, tempB);
-	// }
 }
 
 
-function swapClasses(el1, el2) {
-	var dirty = false;
-	var list1 = el1.classList,
-		list2 = el2.classList;
+// function swapClasses(el1, el2) {
+// 	var dirty = false;
+// 	var list1 = el1.classList,
+// 		list2 = el2.classList;
 
-	if(list1.length !== list2.length) {//the same lengths of styles list
-		dirty = true;
-	}
-	else {
-		list1.forEach(function(style) {//diffrent lengths of styles list
-			if(!list2.contains(style)) {
-				dirty = true;
-			}
-		});
-	}
+// 	if(list1.length !== list2.length) {//diffrent lengths of styles list
+// 		dirty = true;
+// 	}
+// 	else {
+// 		list1.forEach(function(style) {
+// 			if(!list2.contains(style)) {
+// 				dirty = true;
+// 			}
+// 		});
+// 	}
 	
-	//swaping styles if changes detected
-	if(dirty) {
-		var v1 = list1.value,
-			v2 = list2.value;
-		el1.className = v2;
-		el2.className = v1;
-	}
+// 	//swaping styles if changes detected
+// 	if(dirty) {
+// 		var v1 = list1.value,
+// 			v2 = list2.value;
+// 		el1.className = v2;
+// 		el2.className = v1;
+// 	}
 
-	return dirty;
-}
+// 	return dirty;
+// }

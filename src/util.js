@@ -45,6 +45,14 @@ function setId(i) {
     id = i;
 }
 
+function parseNumber(val, min, max) {
+    val = Number(val);
+    if(val >= min && val <= max) {
+        return val;
+    }
+    throw "string-parse exception:" + val;
+}
+
 
 exports.byName = byName;
 exports.text = text;
@@ -52,3 +60,4 @@ exports.create = create;
 exports.randomObjects = randomObjects;
 exports.resetId = resetId;
 exports.setId = setId;
+exports.parseNumber = parseNumber;

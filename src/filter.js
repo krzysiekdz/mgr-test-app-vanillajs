@@ -4,12 +4,14 @@ import Bindings from './bind.js';
 import row from './row.js';
 
 var filterOn = false;
+var classNameFiltered = 'filtered';
 
 exports.filter = filter1;
 
 
 function filter1() {
 	var data = state.data;
+	var table = Bindings.table;
 
 	if(data.length > 0 && !filterOn) {
 		filterOn = true;
@@ -25,6 +27,8 @@ function filter1() {
 				tr.className = 'visible-off';
 			}
 		}
+		table.classList.add(classNameFiltered);
+		
 	} else if (data.length > 0 && filterOn) {
 		filterOn = false;
 
@@ -37,6 +41,7 @@ function filter1() {
 				tr.className = 'visible-on';
 			}
 		}
+		table.classList.remove(classNameFiltered);
 	}
 }
 

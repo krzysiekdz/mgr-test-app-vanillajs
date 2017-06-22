@@ -74,53 +74,79 @@
 
 
 function byName(name) {
-  return document.querySelector('[name= ' + name + ']');
+    return document.querySelector('[name= ' + name + ']');
 }
 
 function text(txt) {
-  return document.createTextNode(txt);
+    return document.createTextNode(txt);
 }
 
 function create(el) {
-  return document.createElement(el);
+    return document.createElement(el);
 }
 
 var id = 1;
 
 function randomObjects() {
-  var count = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 100;
+    var count = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 100;
 
 
-  var col1 = ['John', 'Paulo', 'Anthony', 'Roger', 'Graham', 'Robin', 'Terry', 'Erick', 'Michael', 'Carol', 'Simon', 'Sir'];
-  var col2 = ['Champman', 'Cleese', 'Gillman', 'Idle', 'Jones', 'Palin', 'Cohen', 'Centurion', 'Dirk', 'Lorett', 'Lancelot', 'Robin', 'Galahad'];
-  // var col3 = ['Przywódca', 'Mędrzec', 'Strażnik', 'Rewolucjonista', 'Prorok', 'Asystent', 'Wokalista', 'Urzędnik', 'Handlarz', 'Rycerz', 'Czarnoksiężnik'];
-  var col3 = ['Leader', 'Wise man', 'Warden', 'Revolutionary', 'Prophet', 'Assistant', 'Singer', 'Officer', 'Tradesman', 'Knight', 'Wizard'];
-  var col4 = [100, 200, 500, 1000, 1500, 2000, 3000, 5000, 8000, 10000];
+    var col1 = ['John', 'Paulo', 'Anthony', 'Roger', 'Graham', 'Robin', 'Terry', 'Erick', 'Michael', 'Carol', 'Simon', 'Sir'];
+    var col2 = ['Champman', 'Cleese', 'Gillman', 'Idle', 'Jones', 'Palin', 'Cohen', 'Centurion', 'Dirk', 'Lorett', 'Lancelot', 'Robin', 'Galahad'];
+    // var col3 = ['Przywódca', 'Mędrzec', 'Strażnik', 'Rewolucjonista', 'Prorok', 'Asystent', 'Wokalista', 'Urzędnik', 'Handlarz', 'Rycerz', 'Czarnoksiężnik'];
+    var col3 = ['Leader', 'Wise man', 'Warden', 'Revolutionary', 'Prophet', 'Assistant', 'Singer', 'Officer', 'Tradesman', 'Knight', 'Wizard'];
+    var col4 = [100, 200, 500, 1000, 1500, 2000, 3000, 5000, 8000, 10000];
 
-  var data = [];
-  for (var i = 0; i < count; i++) {
-    data.push({
-      id: id++,
-      c1: col1[rand(col1.length)],
-      c2: col2[rand(col2.length)],
-      c3: col3[rand(col3.length)],
-      c4: col4[rand(col4.length)]
-    });
-  }
-  return data;
+    var data = [];
+    for (var i = 0; i < count; i++) {
+        data.push({
+            id: id++,
+            c1: col1[rand(col1.length)],
+            c2: col2[rand(col2.length)],
+            c3: col3[rand(col3.length)],
+            c4: col4[rand(col4.length)]
+        });
+    }
+    return data;
 }
 
 function rand(mod) {
-  //max modulo === 1000
-  return Math.floor(Math.random() * 1000) % mod;
+    //max modulo === 1000
+    return Math.floor(Math.random() * 1000) % mod;
 }
 
 function resetId() {
-  id = 1;
+    id = 1;
 }
 
 function setId(i) {
-  id = i;
+    id = i;
+}
+
+function parseNumber(val, min, max) {
+    val = Number(val);
+    if (val >= min && val <= max) {
+        return val;
+    }
+    throw "string-parse exception:" + val;
+}
+
+var start_;
+var stop_;
+var stopFlag = false;
+
+exports.stopMeasure = function () {
+    stopFlag = true;
+};
+
+exports.startMeasure = startMeasure;
+function startMeasure(action) {
+    if (stopFlag) return;
+    start_ = performance.now();
+    window.setTimeout(function () {
+        stop_ = performance.now();
+        console.log(action + " took : " + (stop_ - start_) + " ms");
+    }, 0);
 }
 
 exports.byName = byName;
@@ -129,6 +155,7 @@ exports.create = create;
 exports.randomObjects = randomObjects;
 exports.resetId = resetId;
 exports.setId = setId;
+exports.parseNumber = parseNumber;
 
 /***/ }),
 /* 1 */
@@ -148,7 +175,7 @@ module.exports = b;
 b.bind = bind;
 
 function bind() {
-	b.btnClear = _util2.default.byName('clear'), b.btnRefresh = _util2.default.byName('refresh'), b.table = _util2.default.byName('table'), b.tableWrap = _util2.default.byName('tableWrap'), b.btnInit = _util2.default.byName('btn-init'), b.inputInit = _util2.default.byName('input-init'), b.btnAddFirst = _util2.default.byName('addFirst'), b.btnAddMid = _util2.default.byName('addMid'), b.btnAddLast = _util2.default.byName('addLast'), b.inputAdd = _util2.default.byName('input-add'), b.btnReplaceFirst = _util2.default.byName('replaceFirst'), b.btnReplaceMid = _util2.default.byName('replaceMid'), b.btnReplaceLast = _util2.default.byName('replaceLast'), b.inputReplace = _util2.default.byName('input-replace'), b.btnUpdateColFirst = _util2.default.byName('updateColFirst'), b.btnUpdateColMid = _util2.default.byName('updateColMid'), b.btnUpdateColLast = _util2.default.byName('updateColLast'), b.btnUpdate10 = _util2.default.byName('update10'), b.checkboxUpdateReplace = _util2.default.byName('checkbox-update-replace'), b.inputUpdateWord = _util2.default.byName('input-update-text'), b.inputUpdateCol = _util2.default.byName('input-update-column'), b.btnSwapFirst = _util2.default.byName('swapFirst'), b.btnSwapMid = _util2.default.byName('swapMid'), b.btnSwapLast = _util2.default.byName('swapLast'), b.btnFilter10_1 = _util2.default.byName('filter10_1'), b.btnFilter10_2 = _util2.default.byName('filter10_2'), b.btnFilter10_3 = _util2.default.byName('filter10_3'), b.btnFetch1 = _util2.default.byName('fetch1'), b.btnFetch2 = _util2.default.byName('fetch2'), b.btnFetch3 = _util2.default.byName('fetch3'), b.inputInput = _util2.default.byName('input-input'), b.inputEdit = _util2.default.byName('input-edit'), b.btnEdit = _util2.default.byName('btn-edit'), b.inputSearch = _util2.default.byName('input-search'), b.btnSearch = _util2.default.byName('btn-search');
+	b.btnClear = _util2.default.byName('clear'), b.btnRefresh = _util2.default.byName('refresh'), b.table = _util2.default.byName('table'), b.tableWrap = _util2.default.byName('tableWrap'), b.btnInit = _util2.default.byName('btn-init'), b.inputInit = _util2.default.byName('input-init'), b.btnAddFirst = _util2.default.byName('addFirst'), b.btnAddMid = _util2.default.byName('addMid'), b.btnAddLast = _util2.default.byName('addLast'), b.inputAdd = _util2.default.byName('input-add'), b.btnReplaceFirst = _util2.default.byName('replaceFirst'), b.btnReplaceMid = _util2.default.byName('replaceMid'), b.btnReplaceLast = _util2.default.byName('replaceLast'), b.inputReplace = _util2.default.byName('input-replace'), b.btnUpdateFirst = _util2.default.byName('updateFirst'), b.btnUpdateMid = _util2.default.byName('updateMid'), b.btnUpdateLast = _util2.default.byName('updateLast'), b.btnUpdateEvery = _util2.default.byName('updateEvery'), b.inputUpdate = _util2.default.byName('input-update'), b.inputUpdateEvery = _util2.default.byName('input-update-every'), b.btnSwapFirst = _util2.default.byName('swapFirst'), b.btnSwapMid = _util2.default.byName('swapMid'), b.btnSwapLast = _util2.default.byName('swapLast'), b.btnFetch1 = _util2.default.byName('fetch1'), b.btnFetch2 = _util2.default.byName('fetch2'), b.inputInput = _util2.default.byName('input-input'), b.inputEdit = _util2.default.byName('input-edit'), b.btnEdit = _util2.default.byName('btn-edit'), b.checkboxFilter = _util2.default.byName('checkbox-filter'), b.inputSearch = _util2.default.byName('input-search'), b.btnSearch = _util2.default.byName('btn-search');
 }
 
 /***/ }),
@@ -177,6 +204,10 @@ var _appState = __webpack_require__(2);
 
 var _appState2 = _interopRequireDefault(_appState);
 
+var _update = __webpack_require__(4);
+
+var _update2 = _interopRequireDefault(_update);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 //sprawdzic zajetosc pamieciowa jesli daje 1 glownego listenera zamiast wielu mniejszych - i jak to zadziala na szybkosci funkcji
@@ -188,6 +219,7 @@ function createRow(item) {
 	var tr = _util2.default.create('tr');
 
 	tr.addEventListener('click', function () {
+		_util2.default.startMeasure('select');
 		clickRow(tr);
 	}, false);
 
@@ -230,8 +262,10 @@ function createRow(item) {
 	var span = _util2.default.create('span');
 	span.className = 'glyphicon glyphicon-remove';
 	btn.appendChild(span);
-	btn.addEventListener('click', function () {
-		deleteRow(tr, item);
+	btn.addEventListener('click', function (e) {
+		_util2.default.startMeasure('remove one');
+		deleteRow(item);
+		e.stopPropagation();
 	}, false);
 	td6.appendChild(btn);
 
@@ -253,7 +287,34 @@ function clickRow(tr) {
 	}
 }
 
-function deleteRow(tr, item) {
+//non-keyed
+function deleteRow(item) {
+	var data = _appState2.default.data;
+
+	var idx = data.findIndex(function (it) {
+		return it.id === item.id;
+	});
+	var last = _appState2.default.data.length - 1;
+
+	for (var i = idx; i < last; i++) {
+		updateSingle(data[i], data[i + 1]);
+		_update2.default.updateRow(data[i]);
+	}
+
+	data[last].ref.remove();
+	_appState2.default.data.splice(last, 1);
+}
+
+function updateSingle(item1, item2) {
+	item1.id = item2.id;
+	item1.c1 = item2.c1;
+	item1.c2 = item2.c2;
+	item1.c3 = item2.c3;
+	item1.c4 = item2.c4;
+}
+
+//keyed
+function deleteRow2(tr, item) {
 	tr.remove();
 	var i = _appState2.default.data.findIndex(function (it) {
 		return it.id === item.id;
@@ -288,12 +349,182 @@ var _row2 = _interopRequireDefault(_row);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+exports.updateRowsFirst = updateRowsFirst;
+function updateRowsFirst(count) {
+	count = _util2.default.parseNumber(count, 1, 2000);
+	var data = _appState2.default.data;
+
+	if (data.length >= count) {
+		var start = 0,
+		    end = count;
+
+		updateModel(start, end);
+
+		updateView(start, end);
+	}
+}
+
+exports.updateRowsMid = updateRowsMid;
+function updateRowsMid(count) {
+	count = _util2.default.parseNumber(count, 1, 2000);
+	var data = _appState2.default.data;
+
+	if (_appState2.default.data.length >= count) {
+		var start = Math.floor(data.length / 2) - Math.floor(count / 2);
+		var end = start + count;
+
+		updateModel(start, end);
+
+		updateView(start, end);
+	}
+}
+
+exports.updateRowsLast = updateRowsLast;
+function updateRowsLast(count) {
+	count = _util2.default.parseNumber(count, 1, 2000);
+	var data = _appState2.default.data;
+
+	if (_appState2.default.data.length >= count) {
+		var start = data.length - count;
+		var end = start + count;
+
+		updateModel(start, end);
+
+		updateView(start, end);
+	}
+}
+
+function updateModel(start, end) {
+	var newData = _util2.default.randomObjects(end - start);
+	$$updateModel(start, end, newData);
+}
+
+//updating model; in replace we are replacing all objects, in update we only replace properties
+function $$updateModel(start, end, newData) {
+	var data = _appState2.default.data;
+
+	for (var i = start, j = 0; i < end; i++, j++) {
+		data[i].id = newData[j].id;
+		data[i].c1 = newData[j].c1;
+		data[i].c2 = newData[j].c2;
+		data[i].c3 = newData[j].c3;
+		data[i].c4 = newData[j].c4;
+	}
+}
+
+function updateView(start, end) {
+	var data = _appState2.default.data;
+
+	for (var i = start; i < end; i++) {
+		updateRow(data[i]);
+
+		//non-keyed slow replace
+		// updateSlow(Bindings.table.children.item(i), data[i]);
+	}
+}
+
+exports.updateRow = updateRow;
+function updateRow(item) {
+	var tr = item.ref;
+	tr.cells[0].innerText = item.id;
+	tr.cells[1].innerText = item.c1;
+	tr.cells[2].innerText = item.c2;
+	tr.cells[3].innerText = item.c3;
+	tr.cells[4].innerText = item.c4;
+
+	//cleaning for possible existing styles
+	// for(var i = 1; i <= 4; i++) {
+	// 	if(tr.cells[i].classList.contains('search-selected')) {
+	// 		tr.cells[i].classList.remove('search-selected');
+	// 	}
+	// }
+}
+
+exports.partialUpdate = partialUpdate;
+function partialUpdate(every) {
+	every = _util2.default.parseNumber(every, 1, 10);
+	if (_appState2.default.data.length > 0) {
+		updateModelEvery(every);
+		updateViewEvery(every);
+	}
+}
+
+function updateModelEvery(every) {
+	var data = _appState2.default.data;
+
+	var count = Math.ceil(data.length / every);
+	var newData = _util2.default.randomObjects(count);
+	$$updateModelEvery(every, newData);
+}
+
+function $$updateModelEvery(every, newData) {
+	var data = _appState2.default.data;
+
+	for (var i = 0, j = 0; i < data.length; i += every, j++) {
+		data[i].id = newData[j].id;
+		data[i].c1 = newData[j].c1;
+		data[i].c2 = newData[j].c2;
+		data[i].c3 = newData[j].c3;
+		data[i].c4 = newData[j].c4;
+	}
+}
+
+function updateViewEvery(every) {
+	var data = _appState2.default.data;
+
+	for (var i = 0; i < data.length; i += every) {
+		updateRow(data[i]);
+	}
+}
+
+//non-keyed slow replace -> slow because tr is passed through API table.children.item(i)
+function updateSlow(tr, item) {
+	tr.cells[0].innerText = item.id;
+	tr.cells[1].innerText = item.c1;
+	tr.cells[2].innerText = item.c2;
+	tr.cells[3].innerText = item.c3;
+	tr.cells[4].innerText = item.c4;
+
+	//cleaning for possible existing styles
+	// for(var i = 1; i <= 4; i++) {
+	// 	if(tr.cells[i].classList.contains('search-selected')) {
+	// 		tr.cells[i].classList.remove('search-selected');
+	// 	}
+	// }
+}
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _util = __webpack_require__(0);
+
+var _util2 = _interopRequireDefault(_util);
+
+var _appState = __webpack_require__(2);
+
+var _appState2 = _interopRequireDefault(_appState);
+
+var _bind = __webpack_require__(1);
+
+var _bind2 = _interopRequireDefault(_bind);
+
+var _row = __webpack_require__(3);
+
+var _row2 = _interopRequireDefault(_row);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 exports.addRowsFirst = addRowsFirst;
 exports.addRowsMid = addRowsMid;
 exports.addRowsLast = addRowsLast;
 
 function addRowsFirst(count, newData) {
 	//newData - optional parameter - if it is, randomObjects is not used
+	count = _util2.default.parseNumber(count, 1, 10000);
 	if (!newData) {
 		newData = _util2.default.randomObjects(count);
 	}
@@ -305,6 +536,7 @@ function addRowsFirst(count, newData) {
 }
 
 function addRowsMid(count, newData) {
+	count = _util2.default.parseNumber(count, 1, 10000);
 	if (!newData) {
 		newData = _util2.default.randomObjects(count);
 	}
@@ -324,6 +556,7 @@ function addRowsMid(count, newData) {
 }
 
 function addRowsLast(count, newData) {
+	count = _util2.default.parseNumber(count, 1, 10000);
 	if (!newData) {
 		newData = _util2.default.randomObjects(count);
 	}
@@ -352,215 +585,6 @@ function updateView(newData, insertBeforePos, last) {
 	}
 }
 
-// function addRows(count = 100) {
-// 	//wersja 1
-// 	// var newData = buildData(count);
-// 	// data = data.concat(newData);
-// 	// newData.forEach(item => {
-// 	// 	table.appendChild(createRow(item));
-// 	// });
-
-// 	//sprawdzic czym sie rozni docFramgment od zwyklego diva, gdydybm do niego dodawal
-// 	var newData = randomObjects(count);
-// 	data = data.concat(newData);
-// 	var docFragment = document.createDocumentFragment();
-// 	newData.forEach(item => {
-// 		docFragment.appendChild(createRow(item));
-// 	});
-// 	table.appendChild(docFragment);
-// }
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _util = __webpack_require__(0);
-
-var _util2 = _interopRequireDefault(_util);
-
-var _appState = __webpack_require__(2);
-
-var _appState2 = _interopRequireDefault(_appState);
-
-var _bind = __webpack_require__(1);
-
-var _bind2 = _interopRequireDefault(_bind);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.replaceRowsFirst = replaceRowsFirst;
-function replaceRowsFirst(count) {
-	var data = _appState2.default.data;
-
-	if (data.length >= count) {
-		var start = 0,
-		    end = count;
-
-		updateModel(start, end);
-
-		updateView(start, end);
-	}
-}
-
-exports.replaceRowsMid = replaceRowsMid;
-function replaceRowsMid(count) {
-	var data = _appState2.default.data;
-
-	if (_appState2.default.data.length >= count) {
-		var start = Math.floor(data.length / 2) - Math.floor(count / 2);
-		var end = start + count;
-
-		updateModel(start, end);
-
-		updateView(start, end);
-	}
-}
-
-exports.replaceRowsLast = replaceRowsLast;
-function replaceRowsLast(count) {
-	var data = _appState2.default.data;
-
-	if (_appState2.default.data.length >= count) {
-		var start = data.length - count;
-		var end = start + count;
-
-		updateModel(start, end);
-
-		updateView(start, end);
-	}
-}
-
-function updateModel(start, end) {
-	var data = _appState2.default.data;
-
-	var newData = _util2.default.randomObjects(end - start);
-	for (var i = start, j = 0; i < end; i++, j++) {
-		data[i].id = newData[j].id;
-		data[i].c1 = newData[j].c1;
-		data[i].c2 = newData[j].c2;
-		data[i].c3 = newData[j].c3;
-		data[i].c4 = newData[j].c4;
-	}
-}
-
-function updateView(start, end) {
-	var data = _appState2.default.data;
-
-	for (var i = start; i < end; i++) {
-		//non-keyed replace
-		refreshRow(data[i]);
-
-		//non-keyed slow replace
-		// refreshSlow(Bindings.table.children.item(i), data[i]);
-
-		//keyed replace
-		// refreshRow2(data[i]);
-	}
-}
-
-//non-keyd replace
-function refreshRow(item) {
-	var tr = item.ref;
-	tr.cells[0].innerText = item.id;
-	tr.cells[1].innerText = item.c1;
-	tr.cells[2].innerText = item.c2;
-	tr.cells[3].innerText = item.c3;
-	tr.cells[4].innerText = item.c4;
-
-	//cleaning for possible existing styles
-	for (var i = 1; i <= 4; i++) {
-		if (tr.cells[i].classList.contains('search-selected')) {
-			tr.cells[i].classList.remove('search-selected');
-		}
-	}
-}
-
-//non-keyed slow replace -> slow because tr is passed through API table.children.item(i)
-function refreshSlow(tr, item) {
-	tr.cells[0].innerText = item.id;
-	tr.cells[1].innerText = item.c1;
-	tr.cells[2].innerText = item.c2;
-	tr.cells[3].innerText = item.c3;
-	tr.cells[4].innerText = item.c4;
-
-	//cleaning for possible existing styles
-	for (var i = 1; i <= 4; i++) {
-		if (tr.cells[i].classList.contains('search-selected')) {
-			tr.cells[i].classList.remove('search-selected');
-		}
-	}
-}
-
-//keyed replace
-function refreshRow2(item) {}
-//usuniecie grupy elementow (lub usiniecie dzieci z elementu tr)
-//dodanie grupy w wybrane miejsce - to jak add
-//jest jak remove + add - nie ma co badać - jesli we frameworku czasy sa wlasnie jak dla add to znaczy ze jest robiona wersja keyed
-
-//..napisac i zbadac i pokazac ze czasy sa jak dla add i remove
-
-
-//----------------------------------- old functions, should't be used
-
-//non-keyed replace
-exports.replaceRow = replaceRow;
-function replaceRow(item, newItem) {
-	item.id = newItem.id;
-	item.c1 = newItem.c1;
-	item.c2 = newItem.c2;
-	item.c3 = newItem.c3;
-	item.c4 = newItem.c4;
-
-	var tr = item.ref;
-	tr.cells[0].innerText = item.id;
-	tr.cells[1].innerText = item.c1;
-	tr.cells[2].innerText = item.c2;
-	tr.cells[3].innerText = item.c3;
-	tr.cells[4].innerText = item.c4;
-
-	//cleaning for possible existing styles
-	for (var i = 1; i <= 4; i++) {
-		if (tr.cells[i].classList.contains('search-selected')) {
-			tr.cells[i].classList.remove('search-selected');
-		}
-	}
-
-	// item.search = [null, null, null, null];
-	// item.visible
-
-	//something similar to keyed replace...
-
-	// tr.cells[0].remove();
-	// tr.cells[0].remove();
-	// tr.insertBefore(create('td'), tr.cells[0]);
-	// tr.insertBefore(create('td'), tr.cells[0]);
-
-	// tr.cells[0].appendChild(text(item.id));
-	// tr.cells[1].appendChild(text(item.label));
-}
-
-function replaceRowSlow(tr, item, newItem) {
-	//slow because tr is passed through API table.children.item(i)
-	item.id = newItem.id;
-	item.c1 = newItem.c1;
-	item.c2 = newItem.c2;
-	item.c3 = newItem.c3;
-	item.c4 = newItem.c4;
-
-	tr.cells[0].innerText = item.id;
-	tr.cells[1].innerText = item.c1;
-	tr.cells[2].innerText = item.c2;
-	tr.cells[3].innerText = item.c3;
-	tr.cells[4].innerText = item.c4;
-}
-
-// to check...
-// var txt = tr.cells[1].firstChild.nodeValue;
-// tr.cells[1].firstChild.nodeValue = txt + 'a';
-
 /***/ }),
 /* 6 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -587,10 +611,13 @@ var _row2 = _interopRequireDefault(_row);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var filterOn = false;
+var classNameFiltered = 'filtered';
 
-exports.filterRows10 = filterRows10;
-function filterRows10() {
+exports.filter = filter1;
+
+function filter1() {
 	var data = _appState2.default.data;
+	var table = _bind2.default.table;
 
 	if (data.length > 0 && !filterOn) {
 		filterOn = true;
@@ -606,23 +633,24 @@ function filterRows10() {
 				tr.className = 'visible-off';
 			}
 		}
+		table.classList.add(classNameFiltered);
 	} else if (data.length > 0 && filterOn) {
 		filterOn = false;
 
 		for (var i = 0; i < data.length; i++) {
 			//update model and view 
-			if (data[i].id % 10 !== 0) {
+			if (!data[i].visible) {
 				data[i].visible = true;
 				var tr = data[i].ref;
 				// var tr = table.children.item(i);
 				tr.className = 'visible-on';
 			}
 		}
+		table.classList.remove(classNameFiltered);
 	}
 }
 
-exports.filterRows10_2 = filterRows10_2;
-function filterRows10_2() {
+function filter2() {
 	var data = _appState2.default.data;
 	var tableWrap = _bind2.default.tableWrap,
 	    table = _bind2.default.table;
@@ -637,8 +665,7 @@ function filterRows10_2() {
 	}
 }
 
-exports.filterRows10_3 = filterRows10_3;
-function filterRows10_3() {
+function filter3() {
 	var data = _appState2.default.data;
 	var tableWrap = _bind2.default.tableWrap;
 
@@ -675,13 +702,13 @@ var _row = __webpack_require__(3);
 
 var _row2 = _interopRequireDefault(_row);
 
-var _add = __webpack_require__(4);
+var _add = __webpack_require__(5);
 
 var _add2 = _interopRequireDefault(_add);
 
-var _replace = __webpack_require__(5);
+var _update = __webpack_require__(4);
 
-var _replace2 = _interopRequireDefault(_replace);
+var _update2 = _interopRequireDefault(_update);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -690,7 +717,10 @@ function clearRows() {
 	if (_appState2.default.data.length > 0) {
 		_appState2.default.data = [];
 		_util2.default.resetId();
+
+		//find the fastest remove method
 		_bind2.default.table.remove();
+
 		var table = _bind2.default.table = _util2.default.create('tbody');
 		table.setAttribute('name', 'table');
 		_bind2.default.tableWrap.appendChild(table);
@@ -706,13 +736,15 @@ function refreshRows() {
 		table.setAttribute('name', 'table');
 		_bind2.default.tableWrap.appendChild(table);
 		_appState2.default.data.forEach(function (item) {
-			table.appendChild(_row2.default.createRow(item));
+			item.ref = _row2.default.createRow(item);
+			table.appendChild(item.ref);
 		});
 	}
 }
 
 exports.fetchData = fetchData;
 function fetchData(count) {
+	var host = 'http://localhost:8080/data-files/';
 	var resource = 'data' + count + '.json';
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
@@ -720,10 +752,10 @@ function fetchData(count) {
 			var newData = JSON.parse(this.responseText);
 			clearRows();
 			_util2.default.setId(count + 1);
-			_add2.default.addRowsFirst(null, newData);
+			_add2.default.addRowsFirst(1, newData);
 		}
 	};
-	xhttp.open('GET', resource, true);
+	xhttp.open('GET', host + resource, true);
 	xhttp.send();
 }
 
@@ -732,7 +764,7 @@ function editData() {
 	var data = _appState2.default.data;
 	if (data.length > 0) {
 		data[0].c1 = _bind2.default.inputEdit.value;
-		_replace2.default.replaceRow(data[0], data[0]);
+		_update2.default.updateRow(data[0]);
 	}
 }
 
@@ -765,6 +797,115 @@ function searchFor(txt) {
 
 /***/ }),
 /* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _util = __webpack_require__(0);
+
+var _util2 = _interopRequireDefault(_util);
+
+var _appState = __webpack_require__(2);
+
+var _appState2 = _interopRequireDefault(_appState);
+
+var _bind = __webpack_require__(1);
+
+var _bind2 = _interopRequireDefault(_bind);
+
+var _row = __webpack_require__(3);
+
+var _row2 = _interopRequireDefault(_row);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.replaceRowsFirst = replaceRowsFirst;
+function replaceRowsFirst(count) {
+	count = _util2.default.parseNumber(count, 1, 2000);
+	var data = _appState2.default.data;
+
+	if (data.length >= count) {
+		var start = 0,
+		    end = count;
+
+		replaceModel(start, end);
+
+		replaceView(start, end);
+	}
+}
+
+exports.replaceRowsMid = replaceRowsMid;
+function replaceRowsMid(count) {
+	count = _util2.default.parseNumber(count, 1, 2000);
+	var data = _appState2.default.data;
+
+	if (_appState2.default.data.length >= count) {
+		var start = Math.floor(data.length / 2) - Math.floor(count / 2);
+		var end = start + count;
+
+		replaceModel(start, end);
+
+		replaceView(start, end);
+	}
+}
+
+exports.replaceRowsLast = replaceRowsLast;
+function replaceRowsLast(count) {
+	count = _util2.default.parseNumber(count, 1, 2000);
+	var data = _appState2.default.data;
+
+	if (_appState2.default.data.length >= count) {
+		var start = data.length - count;
+		var end = start + count;
+
+		replaceModel(start, end);
+
+		replaceView(start, end);
+	}
+}
+
+function replaceModel(start, end) {
+	var newData = _util2.default.randomObjects(end - start);
+	$$replaceModel(start, end, newData);
+}
+
+function $$replaceModel(start, end, newData) {
+	var data = _appState2.default.data;
+
+	for (var i = start, j = 0; i < end; i++, j++) {
+		newData[j].ref = data[i].ref;
+		data[i] = newData[j];
+	}
+}
+
+function replaceView(start, end) {
+	var data = _appState2.default.data;
+
+	for (var i = start; i < end; i++) {
+		replaceRow(data[i]);
+	}
+}
+
+//non-keyed replace
+function replaceRow(item) {
+	var tr = item.ref;
+	tr.cells[0].innerText = item.id;
+	tr.cells[1].innerText = item.c1;
+	tr.cells[2].innerText = item.c2;
+	tr.cells[3].innerText = item.c3;
+	tr.cells[4].innerText = item.c4;
+
+	//cleaning for possible existing styles
+	// for(var i = 1; i <= 4; i++) {
+	// 	if(tr.cells[i].classList.contains('search-selected')) {
+	// 		tr.cells[i].classList.remove('search-selected');
+	// 	}
+	// }
+}
+
+/***/ }),
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -841,149 +982,45 @@ function swap(i, j) {
 	b.ref.cells[4].innerText = a.c4;
 
 	//swaping styles of td's
-	for (var i = 1; i <= 4; i++) {
-		swapClasses(a.ref.cells[i], b.ref.cells[i]);
-	}
+	// for(var i = 1; i <= 4; i++) {
+	// 	swapClasses(a.ref.cells[i], b.ref.cells[i]);
+	// }
 
 	//swaping styles of tr's
-	swapClasses(a.ref, b.ref);
+	// swapClasses(a.ref, b.ref);
 
 	//swaping view references
 	temp = a.ref;
 	a.ref = b.ref;
 	b.ref = temp;
-
-	//keyed swap
-
-	// if(a >= b) return;
-	// var tempA = table.children.item(a);
-	// table.insertBefore(table.children.item(b), tempA); //B goes before A
-	// var tempB = table.children.item(b+1);
-	// if(!tempB) {
-	// 	table.appendChild(tempA);
-	// } else {
-	// 	table.insertBefore(tempA, tempB);
-	// }
 }
 
-function swapClasses(el1, el2) {
-	var dirty = false;
-	var list1 = el1.classList,
-	    list2 = el2.classList;
+// function swapClasses(el1, el2) {
+// 	var dirty = false;
+// 	var list1 = el1.classList,
+// 		list2 = el2.classList;
 
-	if (list1.length !== list2.length) {
-		//the same lengths of styles list
-		dirty = true;
-	} else {
-		list1.forEach(function (style) {
-			//diffrent lengths of styles list
-			if (!list2.contains(style)) {
-				dirty = true;
-			}
-		});
-	}
+// 	if(list1.length !== list2.length) {//diffrent lengths of styles list
+// 		dirty = true;
+// 	}
+// 	else {
+// 		list1.forEach(function(style) {
+// 			if(!list2.contains(style)) {
+// 				dirty = true;
+// 			}
+// 		});
+// 	}
 
-	//swaping styles if changes detected
-	if (dirty) {
-		var v1 = list1.value,
-		    v2 = list2.value;
-		el1.className = v2;
-		el2.className = v1;
-	}
+// 	//swaping styles if changes detected
+// 	if(dirty) {
+// 		var v1 = list1.value,
+// 			v2 = list2.value;
+// 		el1.className = v2;
+// 		el2.className = v1;
+// 	}
 
-	return dirty;
-}
-
-/***/ }),
-/* 9 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _util = __webpack_require__(0);
-
-var _util2 = _interopRequireDefault(_util);
-
-var _appState = __webpack_require__(2);
-
-var _appState2 = _interopRequireDefault(_appState);
-
-var _bind = __webpack_require__(1);
-
-var _bind2 = _interopRequireDefault(_bind);
-
-var _row = __webpack_require__(3);
-
-var _row2 = _interopRequireDefault(_row);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.updateColFirst = updateColFirst;
-function updateColFirst(col, word, replace) {
-	updateCol(1, col, word, replace);
-}
-
-exports.updateColMid = updateColMid;
-function updateColMid(col, word, replace) {
-	updateCol(2, col, word, replace);
-}
-
-exports.updateColLast = updateColLast;
-function updateColLast(col, word, replace) {
-	updateCol(3, col, word, replace);
-}
-
-exports.updateRows10 = updateRows10;
-function updateRows10(col, word, replace) {
-	col--;
-	var colName = 'c' + col;
-	var data = _appState2.default.data;
-	if (data.length > 10) {
-		for (var i = 0; i < data.length; i += 10) {
-			//update model
-			if (replace) {
-				data[i][colName] = word;
-			} else {
-				data[i][colName] += word;
-			}
-			//update view
-			var tr = data[i].ref;
-			// var tr = table.children.item(i);
-			tr.cells[col].innerText = data[i][colName];
-		}
-	}
-}
-
-function updateCol(type, col, word, replace) {
-	col--;
-	var data = _appState2.default.data;
-	if (data.length > 0 && col > 0 && col < 5) {
-		var i = getTypePos(type);
-		var colName = 'c' + col;
-		//update model
-		if (replace) {
-			data[i][colName] = word;
-		} else {
-			data[i][colName] += word;
-		}
-		//update view
-		var tr = data[i].ref;
-		tr.cells[col].innerText = data[i][colName];
-	}
-}
-
-function getTypePos(type) {
-	var data = _appState2.default.data;
-	switch (type) {
-		case 1:
-			return 0;
-		case 2:
-			return Math.floor(data.length / 2);
-		case 3:
-			return data.length - 1;
-	}
-}
+// 	return dirty;
+// }
 
 /***/ }),
 /* 10 */
@@ -996,11 +1033,11 @@ var _bind = __webpack_require__(1);
 
 var _bind2 = _interopRequireDefault(_bind);
 
-var _add = __webpack_require__(4);
+var _add = __webpack_require__(5);
 
 var _add2 = _interopRequireDefault(_add);
 
-var _replace = __webpack_require__(5);
+var _replace = __webpack_require__(8);
 
 var _replace2 = _interopRequireDefault(_replace);
 
@@ -1008,11 +1045,11 @@ var _otherFns = __webpack_require__(7);
 
 var _otherFns2 = _interopRequireDefault(_otherFns);
 
-var _update = __webpack_require__(9);
+var _update = __webpack_require__(4);
 
 var _update2 = _interopRequireDefault(_update);
 
-var _swap = __webpack_require__(8);
+var _swap = __webpack_require__(9);
 
 var _swap2 = _interopRequireDefault(_swap);
 
@@ -1020,11 +1057,17 @@ var _filter = __webpack_require__(6);
 
 var _filter2 = _interopRequireDefault(_filter);
 
+var _util = __webpack_require__(0);
+
+var _util2 = _interopRequireDefault(_util);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 document.addEventListener('DOMContentLoaded', function () {
 
 	_bind2.default.bind();
+
+	_util2.default.stopMeasure();
 
 	//clear, refresh
 	_bind2.default.btnClear.addEventListener('click', function () {
@@ -1036,87 +1079,103 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	//init
 	_bind2.default.btnInit.addEventListener('click', function () {
-		_add2.default.addRowsLast(Number(_bind2.default.inputInit.value));
+		_util2.default.startMeasure('init');
+		_add2.default.addRowsLast(_bind2.default.inputInit.value);
 	}, false);
 
 	//add
 	_bind2.default.btnAddFirst.addEventListener('click', function () {
-		_add2.default.addRowsFirst(Number(_bind2.default.inputAdd.value));
+		_util2.default.startMeasure('add first');
+		_add2.default.addRowsFirst(_bind2.default.inputAdd.value);
 	}, false);
 	_bind2.default.btnAddMid.addEventListener('click', function () {
-		_add2.default.addRowsMid(Number(_bind2.default.inputAdd.value));
+		_util2.default.startMeasure('add mid');
+		_add2.default.addRowsMid(_bind2.default.inputAdd.value);
 	}, false);
 	_bind2.default.btnAddLast.addEventListener('click', function () {
-		_add2.default.addRowsLast(Number(_bind2.default.inputAdd.value));
+		_util2.default.startMeasure('add last');
+		_add2.default.addRowsLast(_bind2.default.inputAdd.value);
 	}, false);
 
 	//replace
 	_bind2.default.btnReplaceFirst.addEventListener('click', function () {
-		_replace2.default.replaceRowsFirst(Number(_bind2.default.inputReplace.value));
+		_util2.default.startMeasure('replace');
+		_replace2.default.replaceRowsFirst(_bind2.default.inputReplace.value);
 	}, false);
 	_bind2.default.btnReplaceMid.addEventListener('click', function () {
-		_replace2.default.replaceRowsMid(Number(_bind2.default.inputReplace.value));
+		_util2.default.startMeasure('replace');
+		_replace2.default.replaceRowsMid(_bind2.default.inputReplace.value);
 	}, false);
 	_bind2.default.btnReplaceLast.addEventListener('click', function () {
-		_replace2.default.replaceRowsLast(Number(_bind2.default.inputReplace.value));
+		_util2.default.startMeasure('replace');
+		_replace2.default.replaceRowsLast(_bind2.default.inputReplace.value);
 	}, false);
 
 	//update
-	_bind2.default.btnUpdateColFirst.addEventListener('click', function () {
-		_update2.default.updateColFirst(_bind2.default.inputUpdateCol.value, _bind2.default.inputUpdateWord.value, _bind2.default.checkboxUpdateReplace.checked);
+	_bind2.default.btnUpdateFirst.addEventListener('click', function () {
+		_util2.default.startMeasure('update');
+		_update2.default.updateRowsFirst(_bind2.default.inputUpdate.value);
 	}, false);
-	_bind2.default.btnUpdateColMid.addEventListener('click', function () {
-		_update2.default.updateColMid(_bind2.default.inputUpdateCol.value, _bind2.default.inputUpdateWord.value, _bind2.default.checkboxUpdateReplace.checked);
+	_bind2.default.btnUpdateMid.addEventListener('click', function () {
+		_util2.default.startMeasure('update');
+		_update2.default.updateRowsMid(_bind2.default.inputUpdate.value);
 	}, false);
-	_bind2.default.btnUpdateColLast.addEventListener('click', function () {
-		_update2.default.updateColLast(_bind2.default.inputUpdateCol.value, _bind2.default.inputUpdateWord.value, _bind2.default.checkboxUpdateReplace.checked);
+	_bind2.default.btnUpdateLast.addEventListener('click', function () {
+		_util2.default.startMeasure('update');
+		_update2.default.updateRowsLast(_bind2.default.inputUpdate.value);
 	}, false);
-	_bind2.default.btnUpdate10.addEventListener('click', function () {
-		_update2.default.updateRows10(_bind2.default.inputUpdateCol.value, _bind2.default.inputUpdateWord.value, _bind2.default.checkboxUpdateReplace.checked);
+	_bind2.default.btnUpdateEvery.addEventListener('click', function () {
+		_util2.default.startMeasure('update');
+		_update2.default.partialUpdate(_bind2.default.inputUpdateEvery.value);
 	}, false);
 
 	//swap
 	_bind2.default.btnSwapFirst.addEventListener('click', function () {
+		_util2.default.startMeasure('swap');
 		_swap2.default.swapRowsFirst();
 	}, false);
 	_bind2.default.btnSwapMid.addEventListener('click', function () {
+		_util2.default.startMeasure('swap');
 		_swap2.default.swapRowsMid();
 	}, false);
 	_bind2.default.btnSwapLast.addEventListener('click', function () {
+		_util2.default.startMeasure('swap');
 		_swap2.default.swapRowsLast();
 	}, false);
 
-	_bind2.default.btnFilter10_1.addEventListener('click', function () {
-		_filter2.default.filterRows10();
-	}, false);
-	_bind2.default.btnFilter10_2.addEventListener('click', function () {
-		_filter2.default.filterRows10_2();
-	}, false);
-	_bind2.default.btnFilter10_3.addEventListener('click', function () {
-		_filter2.default.filterRows10_3();
-	}, false);
-
+	//fetch
 	_bind2.default.btnFetch1.addEventListener('click', function () {
+		_util2.default.startMeasure('fetch');
 		_otherFns2.default.fetchData(1000);
 	}, false);
 	_bind2.default.btnFetch2.addEventListener('click', function () {
+		_util2.default.startMeasure('fetch');
 		_otherFns2.default.fetchData(2000);
 	}, false);
-	_bind2.default.btnFetch3.addEventListener('click', function () {
-		_otherFns2.default.fetchData(10000);
-	}, false);
 
+	//edit
 	_bind2.default.inputEdit.addEventListener('input', function () {
+		_util2.default.startMeasure('edit');
 		_otherFns2.default.editData();
 	}, false);
 	_bind2.default.btnEdit.addEventListener('click', function () {
+		_util2.default.startMeasure('edit');
 		_otherFns2.default.editData();
 	}, false);
 
+	//filter
+	_bind2.default.checkboxFilter.addEventListener('click', function () {
+		_util2.default.startMeasure('filter');
+		_filter2.default.filter();
+	}, false);
+
+	//search
 	_bind2.default.inputSearch.addEventListener('input', function () {
+		_util2.default.startMeasure('search');
 		_otherFns2.default.searchData();
 	}, false);
 	_bind2.default.btnSearch.addEventListener('click', function () {
+		_util2.default.startMeasure('search');
 		_otherFns2.default.searchData();
 	}, false);
 });

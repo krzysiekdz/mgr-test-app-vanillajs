@@ -12,6 +12,7 @@ function createRow(item) {
 	let tr = u.create('tr');
 
 	tr.addEventListener('click', function() {
+		u.startMeasure('select');
 		clickRow(tr);
 	}, false);
 
@@ -55,6 +56,7 @@ function createRow(item) {
 	span.className = 'glyphicon glyphicon-remove';
 	btn.appendChild(span);
 	btn.addEventListener('click', function(e) {
+		u.startMeasure('remove one');
 		deleteRow(item);
 		e.stopPropagation();
 	}, false);

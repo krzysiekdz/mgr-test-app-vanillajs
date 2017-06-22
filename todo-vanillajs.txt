@@ -1,9 +1,5 @@
 zrobic mierzenie czasu samego js-a i wtedy potestowac rozne funkcje dla usuwania elementu oraz calej tablicy
 sprawdzic rozne wersje usuwania
-pomiar czasu scriptingu - performance.now()
-remove one non keyed
-filter, search - przyjrzec siê
-
 
 angular - tak samo przerobic 
 

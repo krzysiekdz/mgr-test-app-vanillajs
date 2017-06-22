@@ -54,6 +54,25 @@ function parseNumber(val, min, max) {
 }
 
 
+var start_;
+var stop_;
+var stopFlag = false;
+
+exports.stopMeasure = function() {
+    stopFlag = true;
+}
+
+exports.startMeasure = startMeasure;
+function startMeasure(action) {
+    if(stopFlag) return;
+    start_ = performance.now();
+    window.setTimeout(function() {
+        stop_ = performance.now();
+        console.log(action + " took : " + (stop_ - start_) + " ms");
+    }, 0);
+}
+
+
 exports.byName = byName;
 exports.text = text;
 exports.create = create;

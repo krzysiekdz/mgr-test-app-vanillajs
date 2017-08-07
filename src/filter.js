@@ -1,16 +1,16 @@
 import u from './util.js';
 import state from './app-state.js';
 import Bindings from './bind.js';
-import row from './row.js';
 
 var filterOn = false;
 var classNameFiltered = 'filtered';
+var backup = [];
 
-exports.filter = filter1;
+exports.filter = filterWithRemove;
 
 
 function filter1() {
-	var data = state.data;
+	var data = state.getModel(), rows = state.getRows();
 	var table = Bindings.table;
 
 	if(data.length > 0 && !filterOn) {
@@ -22,8 +22,7 @@ function filter1() {
 				data[i].visible = true;
 			} else {
 				data[i].visible = false;
-				var tr = data[i].ref;
-				// var tr = table.children.item(i);
+				var tr = rows[i];
 				tr.className = 'visible-off';
 			}
 		}
@@ -36,7 +35,7 @@ function filter1() {
 			//update model and view 
 			if(!data[i].visible) {
 				data[i].visible = true;
-				var tr = data[i].ref;
+				var tr = rows[i];
 				// var tr = table.children.item(i);
 				tr.className = 'visible-on';
 			}
@@ -45,30 +44,59 @@ function filter1() {
 	}
 }
 
-
-function filter2() {
-	var data = state.data;
-	var {tableWrap, table} = Bindings;
+//non-keyed version: filtering, rerender filtered, remove rest 
+function filterWithRemove() {
+	var data = state.getModel(), rows = state.getRows();
+	var table = Bindings.table;
 
 	if(data.length > 0 && !filterOn) {
 		filterOn = true;
-		tableWrap.removeChild(table);
+		backup = data.slice();
+		var newState = [];
+
+		for(var i = 0; i < data.length; i++) {
+			//update model
+			if(data[i].id % 10 === 0) {
+				newState.push(data[i]);
+			} 
+		}
+		state.setModel(newState);
+		state.updateView();
+		table.classList.add(classNameFiltered);
+		
 	} else if (data.length > 0 && filterOn) {
 		filterOn = false;
-		tableWrap.appendChild(table);
+
+		state.setModel(backup);
+		state.updateView();		
+		table.classList.remove(classNameFiltered);
 	}
 }
 
 
-function filter3() {
-	var data = state.data;
-	var {tableWrap} = Bindings;
+// function filter2() {
+// 	var data = state.data;
+// 	var {tableWrap, table} = Bindings;
 
-	if(data.length > 0 && !filterOn) {
-		filterOn = true;
-		tableWrap.classList.add('visible-off');
-	} else if (data.length > 0 && filterOn) {
-		filterOn = false;
-		tableWrap.classList.remove('visible-off');
-	}
-}
+// 	if(data.length > 0 && !filterOn) {
+// 		filterOn = true;
+// 		tableWrap.removeChild(table);
+// 	} else if (data.length > 0 && filterOn) {
+// 		filterOn = false;
+// 		tableWrap.appendChild(table);
+// 	}
+// }
+
+
+// function filter3() {
+// 	var data = state.data;
+// 	var {tableWrap} = Bindings;
+
+// 	if(data.length > 0 && !filterOn) {
+// 		filterOn = true;
+// 		tableWrap.classList.add('visible-off');
+// 	} else if (data.length > 0 && filterOn) {
+// 		filterOn = false;
+// 		tableWrap.classList.remove('visible-off');
+// 	}
+// }

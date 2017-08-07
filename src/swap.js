@@ -1,11 +1,11 @@
 import u from './util.js';
 import state from './app-state.js';
 import Bindings from './bind.js';
-import row from './row.js';
 
 exports.swapRowsFirst = swapRowsFirst;
 function swapRowsFirst() {
-	if(state.data.length > 1) {
+	var data = state.getModel();
+	if(data.length > 1) {
 		var i = 0;
 		var j = 1;
 		swap(i, j);
@@ -14,8 +14,9 @@ function swapRowsFirst() {
 
 exports.swapRowsMid = swapRowsMid;
 function swapRowsMid() {
-	if(state.data.length > 1) {
-		var i = Math.floor(state.data.length / 2) - 1;
+	var data = state.getModel();
+	if(data.length > 1) {
+		var i = Math.floor(data.length / 2) - 1;
 		var j = i+1;
 		swap(i, j);
 	}
@@ -23,8 +24,9 @@ function swapRowsMid() {
 
 exports.swapRowsLast = swapRowsLast;
 function swapRowsLast() {
-	if(state.data.length > 1) {
-		var i = state.data.length-2;
+	var data = state.getModel();
+	if(data.length > 1) {
+		var i = data.length-2;
 		var j = i+1;
 		swap(i, j);
 	}
@@ -32,42 +34,23 @@ function swapRowsLast() {
 
 //non-keyed swap
 function swap(i, j) {
-	var data = state.data;
+	if(i >= j) return; //j has to be larger than i
 
 	//update model
+	var data = state.getModel();
 	var temp = data[i];
-		state.data[i] = data[j];
-		state.data[j] = temp;
+	data[i] = data[j];
+	data[j] = temp;
 
-
-	var a = state.data[i];
-	var b = state.data[j];
-
-	//update view
-	a.ref.cells[0].innerText = b.id;
-	a.ref.cells[1].innerText = b.c1;
-	a.ref.cells[2].innerText = b.c2;
-	a.ref.cells[3].innerText = b.c3;
-	a.ref.cells[4].innerText = b.c4;
-
-	b.ref.cells[0].innerText = a.id;
-	b.ref.cells[1].innerText = a.c1;
-	b.ref.cells[2].innerText = a.c2;
-	b.ref.cells[3].innerText = a.c3;
-	b.ref.cells[4].innerText = a.c4;
+	state.updateView();
 
 	//swaping styles of td's
-	// for(var i = 1; i <= 4; i++) {
-	// 	swapClasses(a.ref.cells[i], b.ref.cells[i]);
+	// for(var n = 1; n <= 4; n++) {
+	// 	swapClasses(rows[i].cells[n], rows[j].cells[n]);
 	// }
 
 	//swaping styles of tr's
-	// swapClasses(a.ref, b.ref);
-
-	//swaping view references
-	temp = a.ref;
-	a.ref = b.ref;
-	b.ref = temp;
+	// swapClasses(rows[i], rows[j]);
 }
 
 

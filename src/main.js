@@ -1,9 +1,9 @@
 import Bindings from './bind.js';
 import Add from './add.js';
 import Repl from './replace.js';
-import Fns from './other-fns.js';
 import Update from './update.js';
 import Swap from './swap.js';
+import Fns from './other-fns.js';
 import Filter from './filter.js';
 import u from './util.js';
 
@@ -19,108 +19,111 @@ document.addEventListener('DOMContentLoaded', function() {
 		Fns.clearRows();
 	}, false);
 	Bindings.btnRefresh.addEventListener('click', function() {
-		Fns.refreshRows();
+		Fns.paintModel();
 	}, false);
 
 	//init
 	Bindings.btnInit.addEventListener('click', function() {
-		u.startMeasure('init');
 		Add.addRowsLast(Bindings.inputInit.value);
 	}, false);
 
 	//add
 	Bindings.btnAddFirst.addEventListener('click', function() {
-		u.startMeasure('add first');
 		Add.addRowsFirst(Bindings.inputAdd.value);
 	}, false);
 	Bindings.btnAddMid.addEventListener('click', function() {
-		u.startMeasure('add mid');
 		Add.addRowsMid(Bindings.inputAdd.value);
 	}, false);
 	Bindings.btnAddLast.addEventListener('click', function() {
-		u.startMeasure('add last');
 		Add.addRowsLast(Bindings.inputAdd.value);
 	}, false);
 
 	//replace
 	Bindings.btnReplaceFirst.addEventListener('click', function() {
-		u.startMeasure('replace');
+		// u.startMeasure('replace');
 		Repl.replaceRowsFirst(Bindings.inputReplace.value);
 	}, false);
 	Bindings.btnReplaceMid.addEventListener('click', function() {
-		u.startMeasure('replace');
+		// u.startMeasure('replace');
 		Repl.replaceRowsMid(Bindings.inputReplace.value);
 	}, false);
 	Bindings.btnReplaceLast.addEventListener('click', function() {
-		u.startMeasure('replace');
+		// u.startMeasure('replace');
 		Repl.replaceRowsLast(Bindings.inputReplace.value);
 	}, false);
 
 	//update
 	Bindings.btnUpdateFirst.addEventListener('click', function() {
-		u.startMeasure('update');
+		// u.startMeasure('update');
 		Update.updateRowsFirst(Bindings.inputUpdate.value);
 	}, false);
 	Bindings.btnUpdateMid.addEventListener('click', function() {
-		u.startMeasure('update');
+		// u.startMeasure('update');
 		Update.updateRowsMid(Bindings.inputUpdate.value);
 	}, false);
 	Bindings.btnUpdateLast.addEventListener('click', function() {
-		u.startMeasure('update');
+		// u.startMeasure('update');
 		Update.updateRowsLast(Bindings.inputUpdate.value);
 	}, false);
 	Bindings.btnUpdateEvery.addEventListener('click', function() {
-		u.startMeasure('update');
+		// u.startMeasure('update');
 		Update.partialUpdate(Bindings.inputUpdateEvery.value);
 	}, false);
 
 	//swap
 	Bindings.btnSwapFirst.addEventListener('click', function() {
-		u.startMeasure('swap');
+		// u.startMeasure('swap');
 		Swap.swapRowsFirst();
 	}, false);
 	Bindings.btnSwapMid.addEventListener('click', function() {
-		u.startMeasure('swap');
+		// u.startMeasure('swap');
 		Swap.swapRowsMid();
 	}, false);
 	Bindings.btnSwapLast.addEventListener('click', function() {
-		u.startMeasure('swap');
+		// u.startMeasure('swap');
 		Swap.swapRowsLast();
 	}, false);
 
 	//fetch
 	Bindings.btnFetch1.addEventListener('click', function() {
-		u.startMeasure('fetch');
+		// u.startMeasure('fetch');
 		Fns.fetchData(1000);
 	}, false);
 	Bindings.btnFetch2.addEventListener('click', function() {
-		u.startMeasure('fetch');
+		// u.startMeasure('fetch');
 		Fns.fetchData(2000);
 	}, false);
 
 	//edit
 	Bindings.inputEdit.addEventListener('input', function() {
-		u.startMeasure('edit');
+		// u.startMeasure('edit');
 		Fns.editData();
 	}, false);
 	Bindings.btnEdit.addEventListener('click', function() {
-		u.startMeasure('edit');
+		// u.startMeasure('edit');
 		Fns.editData();
+	}, false);
+
+
+	//input
+	Bindings.inputInput.addEventListener('input', function(e) {
+		// u.startMeasure('edit');
+		Fns.inputData(e);
 	}, false);
 
 	//filter
 	Bindings.checkboxFilter.addEventListener('click', function() {
-		u.startMeasure('filter');
+		// u.startMeasure('filter');
 		Filter.filter();
 	}, false);
 
 	//search
 	Bindings.inputSearch.addEventListener('input', function() {
-		u.startMeasure('search');
+		// u.startMeasure('search');
 		Fns.searchData();
 	}, false);
 	Bindings.btnSearch.addEventListener('click', function() {
-		u.startMeasure('search');
+		// u.startMeasure('search');
 		Fns.searchData();
 	}, false);
 

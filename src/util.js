@@ -50,7 +50,7 @@ function parseNumber(val, min, max) {
     if(val >= min && val <= max) {
         return val;
     }
-    throw "string-parse exception:" + val;
+    return min;
 }
 
 
@@ -62,7 +62,7 @@ exports.stopMeasure = function() {
     stopFlag = true;
 }
 
-exports.startMeasure = startMeasure;
+// exports.startMeasure = startMeasure;
 function startMeasure(action) {
     if(stopFlag) return;
     start_ = performance.now();
@@ -70,6 +70,15 @@ function startMeasure(action) {
         stop_ = performance.now();
         console.log(action + " took : " + (stop_ - start_) + " ms");
     }, 0);
+}
+
+function copyItem(item) {
+    var obj = {};
+    for(key in item) {
+        obj[key] = item[key];
+    }
+
+    return obj;
 }
 
 
@@ -80,3 +89,5 @@ exports.randomObjects = randomObjects;
 exports.resetId = resetId;
 exports.setId = setId;
 exports.parseNumber = parseNumber;
+exports.host = 'http://localhost:8080/';
+exports.copyItem = copyItem;

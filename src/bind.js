@@ -39,6 +39,7 @@ function bind() {
 	b.btnFetch2 = u.byName('fetch2'), 
 
 	b.inputInput = u.byName('input-input'),  
+	b.inputInputView = u.byName('input-input-view'),
 
 	b.inputEdit = u.byName('input-edit'), 
 	b.btnEdit = u.byName('btn-edit'),
